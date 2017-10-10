@@ -1,0 +1,41 @@
+version: "2"
+services:
+    web:
+        build:
+            context: .
+        links:
+            - database
+            - redis
+        expose:
+            - 80
+            - 443
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - .:/app
+        environment:
+          VIRTUAL_HOST: "127.0.0.1:80"
+          REDIS_PORT: 6379
+          APP_USER_LOCAL: "true"
+          MAIL_USERNAME: ""
+          MAIL_PASSWORD: ""
+
+    database:
+        image: quay.io/continuouspipe/mysql5.7:stable
+        environment:
+            MYSQL_ROOT_PASSWORD: arc
+            MYSQL_DATABASE: arc
+            MYSQL_USER: arc
+            MYSQL_PASSWORD: arc
+        expose:
+            - 3306
+        ports:
+            - "3306:3306"
+
+    redis:
+        image: quay.io/continuouspipe/redis3:stable
+        expose:
+            - 6379
+        ports:
+            - "6379:6379"

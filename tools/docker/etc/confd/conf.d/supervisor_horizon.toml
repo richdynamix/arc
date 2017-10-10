@@ -1,0 +1,8 @@
+[template]
+src   = "supervisor/horizon.tmpl"
+dest  = "/etc/supervisor/conf.d/horizon.conf"
+mode  = "0640"
+gid = 33
+uid = 999
+keys = [
+]

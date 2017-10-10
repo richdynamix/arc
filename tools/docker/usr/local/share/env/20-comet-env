@@ -1,0 +1,59 @@
+#!/bin/bash
+
+export DEVELOPMENT_MODE=${DEVELOPMENT_MODE:-true}
+export WEB_HTTPS_ONLY=${WEB_HTTPS_ONLY:-true}
+export START_MODE_WEB=${START_MODE_WEB:-true}
+export START_MODE_CRON=${START_MODE_CRON:-false}
+
+START_HORIZON=${START_HORIZON:-false}
+START_HORIZON="$(convert_to_boolean_string "$START_HORIZON")"
+export START_HORIZON
+
+START_QUEUE=${START_QUEUE:-false}
+START_QUEUE="$(convert_to_boolean_string "$START_QUEUE")"
+export START_QUEUE
+
+RUN_LARAVEL_CRON=${RUN_LARAVEL_CRON:-true}
+RUN_LARAVEL_CRON="$(convert_to_boolean_string "$RUN_LARAVEL_CRON")"
+export RUN_LARAVEL_CRON
+
+REFRESH_INSTALL_ON_START=${REFRESH_INSTALL_ON_START:-false}
+REFRESH_INSTALL_ON_START="$(convert_to_boolean_string "$REFRESH_INSTALL_ON_START")"
+export REFRESH_INSTALL_ON_START
+
+export WORK_DIRECTORY=${WORK_DIRECTORY:-/app}
+export WEB_DIRECTORY=${WEB_DIRECTORY:-${WORK_DIRECTORY}/public}
+
+export APP_NAME=${APP_NAME:-Arc}
+export APP_ENV=${APP_ENV:-local}
+export APP_KEY=${APP_KEY:-base64:rpDVB589rMWrRUVkcviIAOfnrQo/MOdfWdjOd3t+K5A=}
+export APP_DEBUG=${APP_DEBUG:-true}
+export APP_LOG_LEVEL=${APP_LOG_LEVEL:-debug}
+export APP_URL=${APP_URL:-https://arc.dev}
+
+export DB_CONNECTION=${DB_CONNECTION:-mysql}
+export DB_HOST=${DB_HOST:-database}
+export DB_PORT=${DB_PORT:-3306}
+export DB_DATABASE=${DB_DATABASE:-arc}
+export DB_USERNAME=${DB_USERNAME:-arc}
+export DB_PASSWORD=${DB_PASSWORD:-arc}
+
+export MAIL_DRIVER=${MAIL_DRIVER:-smtp}
+export MAIL_HOST=${MAIL_HOST:-mailtrap.io}
+export MAIL_PORT=${MAIL_PORT:-2525}
+export MAIL_USERNAME=${MAIL_USERNAME:-null}
+export MAIL_PASSWORD=${MAIL_PASSWORD:-null}
+export MAIL_ENCRYPTION=${MAIL_ENCRYPTION:-null}
+
+export CACHE_DRIVER=${CACHE_DRIVER:-redis}
+export SESSION_DRIVER=${SESSION_DRIVER:-redis}
+export QUEUE_DRIVER=${QUEUE_DRIVER:-redis}
+
+export REDIS_HOST=${REDIS_HOST:-redis}
+export REDIS_PASSWORD=${REDIS_PASSWORD:-null}
+export REDIS_PORT=${REDIS_PORT:-6379}
+
+export BROADCAST_DRIVER=${BROADCAST_DRIVER:-pusher}
+export PUSHER_APP_ID=${PUSHER_APP_ID:-null}
+export PUSHER_KEY=${PUSHER_KEY:-null}
+export PUSHER_SECRET=${PUSHER_SECRET:-null}

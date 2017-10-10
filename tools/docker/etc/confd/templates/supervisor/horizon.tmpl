@@ -1,0 +1,10 @@
+[program:horizon]
+command=php /app/artisan horizon
+stdout_logfile=/dev/stdout
+stdout_logfile_maxbytes=0
+stderr_logfile=/dev/stderr
+stderr_logfile_maxbytes=0
+user = root
+autostart = {{ getenv "START_HORIZON" }}
+autorestart = true
+priority = 10

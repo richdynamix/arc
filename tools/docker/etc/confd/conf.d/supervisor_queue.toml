@@ -1,0 +1,8 @@
+[template]
+src   = "supervisor/queue.tmpl"
+dest  = "/etc/supervisor/conf.d/queue.conf"
+mode  = "0640"
+gid = 33
+uid = 999
+keys = [
+]

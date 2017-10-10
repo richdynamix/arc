@@ -1,0 +1,28 @@
+{
+    "name": "richdynamix/arc",
+    "description": "Production ready docker based development environment for your Laravel project.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Steven Richardson",
+            "email": "steven@digitonic.co.uk"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Richdynamix\\Arc\\": "src"
+        }
+    },
+    "extra": {
+    "laravel": {
+        "providers": [
+            "Richdynamix\\Arc\\ArcServiceProvider"
+        ],
+        "aliases": {
+            "Arc": "Richdynamix\\Arc\\ArcFacade"
+        }
+    }
+}
+}

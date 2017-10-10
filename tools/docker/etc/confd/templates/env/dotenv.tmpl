@@ -1,0 +1,33 @@
+APP_NAME="{{ getenv "APP_NAME" }}";
+APP_ENV="{{ getenv "APP_ENV" }}";
+APP_KEY="{{ getenv "APP_KEY" }}";
+APP_DEBUG="{{ getenv "APP_DEBUG" }}";
+APP_LOG_LEVEL="{{ getenv "APP_LOG_LEVEL" }}";
+APP_URL="{{ getenv "APP_URL" }}";
+
+DB_CONNECTION="{{ getenv "DB_CONNECTION" }}";
+DB_HOST="{{ getenv "DB_HOST" }}";
+DB_PORT="{{ getenv "DB_PORT" }}";
+DB_DATABASE="{{ getenv "DB_DATABASE" }}";
+DB_USERNAME="{{ getenv "DB_USERNAME" }}";
+DB_PASSWORD="{{ getenv "DB_PASSWORD" }}";
+
+MAIL_DRIVER="{{ getenv "MAIL_DRIVER" }}";
+MAIL_HOST="{{ getenv "MAIL_HOST" }}";
+MAIL_PORT="{{ getenv "MAIL_PORT" }}";
+MAIL_USERNAME="{{ getenv "MAIL_USERNAME" }}";
+MAIL_PASSWORD="{{ getenv "MAIL_PASSWORD" }}";
+MAIL_ENCRYPTION="{{ getenv "MAIL_ENCRYPTION" }}";
+
+CACHE_DRIVER="{{ getenv "CACHE_DRIVER" }}";
+SESSION_DRIVER="{{ getenv "SESSION_DRIVER" }}";
+QUEUE_DRIVER="{{ getenv "QUEUE_DRIVER" }}";
+
+REDIS_HOST="{{ getenv "REDIS_HOST" }}";
+REDIS_PASSWORD="{{ getenv "REDIS_PASSWORD" }}";
+REDIS_PORT="{{ getenv "REDIS_PORT" }}";
+
+BROADCAST_DRIVER="{{ getenv "BROADCAST_DRIVER" }}";
+PUSHER_APP_ID="{{ getenv "PUSHER_APP_ID" }}";
+PUSHER_KEY="{{ getenv "PUSHER_KEY" }}";
+PUSHER_SECRET="{{ getenv "PUSHER_SECRET" }}";
