@@ -69,6 +69,14 @@ REFRESH_INSTALL_ON_START | Should the DB be cleaned, migrated and seeded on ever
 START_HORIZON | Should Laravel Horizon worker be started. Do not start START_QUEUE & START_HORIZON at the same time. | true/false | false
 
 
+## Credits
+
+This package would not have been possible would it not have been for the amazing work of the ContinuousPipe team. But a special thanks to Samuel for the introduction of ContinuousPipe and Kubernetes. His ability to teach Docker concepts has been of huge value. A huge thanks to Kieren for his attention to detail and everlasting patience when helping me understand the ContinuousPipe Dockerfiles and setup.
+
+- [Samuel ROZE](https://github.com/sroze)
+- [Kieren Evans](https://github.com/kierenevans)
+
+
 ## Licence
 
 MIT License
