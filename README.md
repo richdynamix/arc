@@ -1,4 +1,4 @@
-# Arc (Work In Progress)
+# Arc
 
 Production ready docker based development environment for your Laravel project.
 
