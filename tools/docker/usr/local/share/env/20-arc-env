@@ -3,7 +3,7 @@
 export DEVELOPMENT_MODE=${DEVELOPMENT_MODE:-true}
 export WEB_HTTPS_ONLY=${WEB_HTTPS_ONLY:-true}
 export START_MODE_WEB=${START_MODE_WEB:-true}
-export START_MODE_CRON=${START_MODE_CRON:-false}
+export START_MODE_CRON=${START_MODE_CRON:-true}
 
 START_HORIZON=${START_HORIZON:-false}
 START_HORIZON="$(convert_to_boolean_string "$START_HORIZON")"
