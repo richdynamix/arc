@@ -1,4 +1,4 @@
-FROM quay.io/continuouspipe/php7.7-nginx:stable
+FROM quay.io/continuouspipe/php7.2-nginx:stable
 
 # Install node npm
 RUN curl -sL https://deb.nodesource.com/setup_10.x > /tmp/install-node.sh \
