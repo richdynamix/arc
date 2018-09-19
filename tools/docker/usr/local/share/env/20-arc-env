@@ -1,15 +1,21 @@
 #!/bin/bash
+START_MODE_CRON=${START_MODE_CRON:-true}
+START_MODE_CRON="$(convert_to_boolean_string "$START_MODE_CRON")"
+export START_MODE_CRON
 
-export DEVELOPMENT_MODE=${DEVELOPMENT_MODE:-true}
-export WEB_HTTPS_ONLY=${WEB_HTTPS_ONLY:-true}
-export START_MODE_WEB=${START_MODE_WEB:-true}
-export START_MODE_CRON=${START_MODE_CRON:-true}
+START_MODE_WEB=${START_MODE_WEB:-true}
+START_MODE_WEB="$(convert_to_boolean_string "$START_MODE_WEB")"
+export START_MODE_WEB
+
+WEB_HTTPS_ONLY=${WEB_HTTPS_ONLY:-true}
+WEB_HTTPS_ONLY="$(convert_to_boolean_string "$WEB_HTTPS_ONLY")"
+export WEB_HTTPS_ONLY
 
 START_HORIZON=${START_HORIZON:-false}
 START_HORIZON="$(convert_to_boolean_string "$START_HORIZON")"
 export START_HORIZON
 
-START_QUEUE=${START_QUEUE:-false}
+START_QUEUE=${START_QUEUE:-true}
 START_QUEUE="$(convert_to_boolean_string "$START_QUEUE")"
 export START_QUEUE
 
@@ -17,9 +23,12 @@ RUN_LARAVEL_CRON=${RUN_LARAVEL_CRON:-true}
 RUN_LARAVEL_CRON="$(convert_to_boolean_string "$RUN_LARAVEL_CRON")"
 export RUN_LARAVEL_CRON
 
-REFRESH_INSTALL_ON_START=${REFRESH_INSTALL_ON_START:-false}
-REFRESH_INSTALL_ON_START="$(convert_to_boolean_string "$REFRESH_INSTALL_ON_START")"
-export REFRESH_INSTALL_ON_START
+AUTH_HTTP_ENABLED=${AUTH_HTTP_ENABLED:-false}
+AUTH_HTTP_ENABLED="$(convert_to_boolean_string "$AUTH_HTTP_ENABLED")"
+export AUTH_HTTP_ENABLED
+
+export AUTH_HTTP_REALM=${AUTH_HTTP_REALM:-"Protected System"}
+export AUTH_HTTP_FILE=/etc/nginx/custom-htpasswd-path
 
 export WORK_DIRECTORY=${WORK_DIRECTORY:-/app}
 export WEB_DIRECTORY=${WEB_DIRECTORY:-${WORK_DIRECTORY}/public}
@@ -28,8 +37,8 @@ export APP_NAME=${APP_NAME:-Arc}
 export APP_ENV=${APP_ENV:-local}
 export APP_KEY=${APP_KEY:-base64:rpDVB589rMWrRUVkcviIAOfnrQo/MOdfWdjOd3t+K5A=}
 export APP_DEBUG=${APP_DEBUG:-true}
-export APP_LOG_LEVEL=${APP_LOG_LEVEL:-debug}
-export APP_URL=${APP_URL:-https://arc.dev}
+export LOG_CHANNEL=${LOG_CHANNEL:-stack}
+export APP_URL=${APP_URL:-https://arc.test}
 
 export DB_CONNECTION=${DB_CONNECTION:-mysql}
 export DB_HOST=${DB_HOST:-database}
@@ -49,11 +58,38 @@ export CACHE_DRIVER=${CACHE_DRIVER:-redis}
 export SESSION_DRIVER=${SESSION_DRIVER:-redis}
 export QUEUE_DRIVER=${QUEUE_DRIVER:-redis}
 
+export SESSION_DRIVER=${SESSION_DRIVER:-file}
+export SESSION_LIFETIME=${SESSION_LIFETIME:-120}
+
 export REDIS_HOST=${REDIS_HOST:-redis}
 export REDIS_PASSWORD=${REDIS_PASSWORD:-null}
 export REDIS_PORT=${REDIS_PORT:-6379}
+
+export MIX_PUSHER_APP_KEY=${MIX_PUSHER_APP_KEY:-null}
+export MIX_PUSHER_APP_CLUSTER=${MIX_PUSHER_APP_CLUSTER:-null}
+
+export AUTHY_SECRET=${AUTHY_SECRET:-null}
+
+export STRIPE_MODEL=${STRIPE_MODEL:-"App\User"}
+export STRIPE_KEY=${STRIPE_KEY:-null}
+export STRIPE_SECRET=${STRIPE_SECRET:-null}
+
+export BRAINTREE_MODEL=${BRAINTREE_MODEL:-"App\User"}
+export BRAINTREE_ENV=${BRAINTREE_ENV:-null}
+export BRAINTREE_MERCHANT_ID=${BRAINTREE_MERCHANT_ID:-null}
+export BRAINTREE_PUBLIC_KEY=${BRAINTREE_PUBLIC_KEY:-null}
+export BRAINTREE_PRIVATE_KEY=${BRAINTREE_PRIVATE_KEY:-null}
 
 export BROADCAST_DRIVER=${BROADCAST_DRIVER:-pusher}
 export PUSHER_APP_ID=${PUSHER_APP_ID:-null}
 export PUSHER_KEY=${PUSHER_KEY:-null}
 export PUSHER_SECRET=${PUSHER_SECRET:-null}
+export PUSHER_APP_CLUSTER=${PUSHER_APP_CLUSTER:-mt1}
+
+export SENTRY_DSN=${SENTRY_DSN:-null}
+export LOGGLY_TOKEN=${LOGGLY_TOKEN:-null}
+
+export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID:-}
+export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY:-}
+export AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION:-eu-central-1}
+export AWS_BUCKET=${AWS_BUCKET:-arc-dev}

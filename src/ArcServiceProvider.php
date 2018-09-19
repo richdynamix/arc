@@ -3,6 +3,7 @@
 namespace Richdynamix\Arc;
 
 use Illuminate\Support\ServiceProvider;
+use Richdynamix\Arc\Console\InstallArc;
 
 class ArcServiceProvider extends ServiceProvider
 {
@@ -18,7 +19,7 @@ class ArcServiceProvider extends ServiceProvider
         ]);
 
         $this->publishes([
-            __DIR__.'/../docker' => base_path('.'),
+            __DIR__ . '/../stubs' => base_path('.'),
         ]);
     }
 
@@ -29,6 +30,8 @@ class ArcServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->commands([
+            InstallArc::class,
+        ]);
     }
 }

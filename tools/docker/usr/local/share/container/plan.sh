@@ -30,7 +30,7 @@ do_arc_frontend_build() {
   # Build frontend assets
   if [ ! -f /app/public/mix-manifest.json ]; then
     as_code_owner "yarn"
-    as_code_owner "npm run production"
+    as_code_owner "yarn run production"
   fi
 }
 
@@ -45,9 +45,5 @@ do_arc_migration() {
 }
 
 do_arc_fresh_install() {
-  if [ "${REFRESH_INSTALL_ON_START}" == "true" ]; then
-    as_code_owner "sleep 5 && php artisan migrate:fresh --seed"
-  else
     do_arc_migration
-  fi
 }

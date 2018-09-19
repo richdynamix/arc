@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Connects to the Docker container for development access
+docker exec -it arc_web_1 bash
