@@ -1,7 +1,7 @@
-FROM quay.io/continuouspipe/php7.1-nginx:stable
+FROM quay.io/continuouspipe/php7.7-nginx:stable
 
 # Install node npm
-RUN curl -sL https://deb.nodesource.com/setup_6.x > /tmp/install-node.sh \
+RUN curl -sL https://deb.nodesource.com/setup_10.x > /tmp/install-node.sh \
  && bash /tmp/install-node.sh \
  && apt-get update -qq -y \
  && DEBIAN_FRONTEND=noninteractive apt-get -qq -y --no-install-recommends install \
@@ -15,13 +15,12 @@ RUN curl -sL https://deb.nodesource.com/setup_6.x > /tmp/install-node.sh \
  && npm install --global marked \
  && npm install --global node-gyp \
  && npm install --global yarn \
- && npm install --global gulp \
  \
  # Install node-sass's linux bindings \
  && npm rebuild node-sass \
  \
  # Clean the image \
- && apt-get remove -qq -y php7.0-dev pkg-config libmagickwand-dev build-essential \
+ && apt-get remove -qq -y php7.2-dev pkg-config libmagickwand-dev build-essential \
  && apt-get auto-remove -qq -y \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

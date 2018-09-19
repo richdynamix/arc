@@ -1,52 +1,68 @@
 # Arc
 
-Production ready docker based development environment for your Laravel project.
+Bootstrap your new Laravel projects with package dependency installation and a highly configurable production ready Docker environment.
 
 ## Overview
 
-Arc is a simple Laravel package to add the ultimate docker environment for the majority of your applications. Built upon the amazing [ContinuousPipe Dockerfiles](https://github.com/continuouspipe/dockerfiles), the package will add the correct Dockerfile, Docker Compose and configurations into your Laravel project.
+Arc is a simple Laravel package to add the ultimate docker environment for the majority of your applications. Built upon the amazing [ContinuousPipe Dockerfiles](https://github.com/continuouspipe/dockerfiles), this package will add the correct Dockerfile, Docker Compose and configurations into your Laravel project. Additionally, Arc will prompt you to install some package dependencies that are popular additions to any Laravel project.
 
 The Docker configuration provides the following - 
 
-- PHP 7.1 (Configurable for 5.6, 7.0 and 7.1)
+- PHP 7.2 (Configurable for 5.6, 7.0, 7.1 & 7.2)
+- NodeJS 10 inc NPM
 - NGINX
 - MySQL 5.7
+- REDIS 3
 - ConfD templating
 - SupervisorD for process management
 - Configurable queue workers
 - Auto start Laravel Horizon processes
 - Auto start CRON
 - Easily create a CRON only container. Useful for zero downtime deployments to a Kubernetes cluster
-- Easily refresh your DB on every container start. (A development feature only and by default is switched off)
 - Configure the entire infrastructure with environment variables.
+
+## Requirements
+
+This package is intended for new Laravel >5.5 projects.
 
 ## Installation
 
-```bash
-composer require richdynamix/arc
-```
-
-#### Register the Service Provider
-
-Add the following to your providers in `config/app.php` - 
-
-`Richdynamix\Arc\ArcServiceProvider::class`
-
-***Please Note: if you are using Laravel 5.5 or newer, please skip service provider registration.***
-
-#### Publish the Docker Configuration
+#### Require the package in your project
 
 ```bash
-php artisan vendor:publish --provider="Richdynamix\Arc\ArcServiceProvider"
+    composer require richdynamix/arc
 ```
+#### Run the installer
+```bash
+    php artisan arc:install
+```
+
+The installer will ask if you would like to install the following packages. While some of these packages are not for every project they bring huge value to any project.
+
+Package | Description
+--- | ---
+[barryvdh/laravel-ide-helper](https://github.com/barryvdh/laravel-ide-helper) | This package generates a file that your IDE understands, so it can provide accurate autocompletion. Generation is done based on the files in your project, so they are always up-to-date.
+[ellipsesynergie/api-response](https://github.com/ellipsesynergie/api-response) | Simple package to handle response properly in your API. This package uses [Fractal](https://github.com/thephpleague/fractal) and is based on [Build APIs You Won't Hate](https://leanpub.com/build-apis-you-wont-hate) book.
+[genealabs/laravel-model-caching](https://github.com/genealabs/laravel-model-caching) | A package that abstracts the caching process into the model and provides self-invalidating relationship (only eager-loading) caching, query caching and automatic use of cache tags for cache providers that support them (will flush entire cache for providers that don't)
+[lord/laroute](https://github.com/aaronlord/laroute) | This package ports the routes over to JavaScript, and gives a bunch of very familiar helper functions to use.
+[laravel/horizon](https://github.com/laravel/horizon) | Horizon provides a beautiful dashboard and code-driven configuration for your Laravel powered Redis queues. Horizon allows you to easily monitor key metrics of your queue system such as job throughput, runtime, and job failures.
 
 #### Run the Container
 
 ```bash
-docker-compose up
+    docker-compose up
 ```
 
 **Note: Before running your Docker container, ensure you have already run your `composer install` on the host machine, otherwise you will need to pass in any GitHub personal access tokens or BitBucket SSH keys at built time to access the private repositories. See Configuration on how to do this.**
+
+#### Connecting to the Web Container
+
+As part of the Arc configurations there is a simple bash script added to the root of your project which allows you to call -
+```bash
+    ./ssh
+```
+This is simply a wrapper script for convenience. Under the hood its simply calling `docker exec -it arc_web_1 bash`
+
 
 ## Configuration
 
@@ -63,11 +79,16 @@ To manipulate your environment you can add values for any of the environment var
 
 Variable | Description | Expected values | Default
 --- | --- | --- | ----
-START_QUEUE | Should the Laravel Queue worker be started. | true/false | false
+START_QUEUE | Should the Laravel Queue worker be started. | true/false | true
 RUN_LARAVEL_CRON | Should the Laravel Queue worker be started. | true/false | false
-REFRESH_INSTALL_ON_START | Should the DB be cleaned, migrated and seeded on every container start. | true/false | false
 START_HORIZON | Should Laravel Horizon worker be started. Do not start START_QUEUE & START_HORIZON at the same time. | true/false | false
 
+**Please Note: `START_QUEUE` & `START_HORIZON` are automatically configured if you install laravel/horizon during installation.** 
+
+## TODO
+
+- Add additional packages that are frequently used
+- Easier configuration of packages that require some manual setup
 
 ## Credits
 
