@@ -1,4 +1,17 @@
 #!/bin/bash
+
+DEVELOPMENT_MODE=${DEVELOPMENT_MODE:-true}
+DEVELOPMENT_MODE="$(convert_to_boolean_string "$DEVELOPMENT_MODE")"
+export DEVELOPMENT_MODE
+
+COMPOSER_INSTALL_FLAGS="--no-interaction --optimize-autoloader --ignore-platform-reqs"
+
+if [ -z "$DEVELOPMENT_MODE" ] || [ "$DEVELOPMENT_MODE" != 'true' ]; then
+  DEFAULT_COMPOSER_FLAGS="${DEFAULT_COMPOSER_FLAGS} --no-dev "
+fi
+
+export COMPOSER_INSTALL_FLAGS=${COMPOSER_INSTALL_FLAGS:-$COMPOSER_INSTALL_FLAGS}
+
 START_MODE_CRON=${START_MODE_CRON:-true}
 START_MODE_CRON="$(convert_to_boolean_string "$START_MODE_CRON")"
 export START_MODE_CRON
