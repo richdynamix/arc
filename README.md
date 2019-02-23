@@ -1,10 +1,10 @@
 # Arc
 
-Bootstrap your new Laravel projects with package dependency installation and a highly configurable production ready Docker environment.
+Bootstrap your new Laravel projects with a highly configurable production ready Docker environment.
 
 ## Overview
 
-Arc is a simple Laravel package to add the ultimate docker environment for the majority of your applications. Built upon the amazing [ContinuousPipe Dockerfiles](https://github.com/continuouspipe/dockerfiles), this package will add the correct Dockerfile, Docker Compose and configurations into your Laravel project. Additionally, Arc will prompt you to install some package dependencies that are popular additions to any Laravel project.
+Arc is a simple Laravel package to add the ultimate docker environment for the majority of your applications. Built upon the amazing [ContinuousPipe Dockerfiles](https://github.com/continuouspipe/dockerfiles), this package will add the correct Dockerfile, Docker Compose and configurations into your Laravel project.
 
 The Docker configuration provides the following - 
 
@@ -37,15 +37,7 @@ This package is intended for new Laravel >5.5 projects.
     php artisan arc:install
 ```
 
-The installer will ask if you would like to install the following packages. While some of these packages are not for every project they bring huge value to any project.
-
-Package | Description
---- | ---
-[barryvdh/laravel-ide-helper](https://github.com/barryvdh/laravel-ide-helper) | This package generates a file that your IDE understands, so it can provide accurate autocompletion. Generation is done based on the files in your project, so they are always up-to-date.
-[ellipsesynergie/api-response](https://github.com/ellipsesynergie/api-response) | Simple package to handle response properly in your API. This package uses [Fractal](https://github.com/thephpleague/fractal) and is based on [Build APIs You Won't Hate](https://leanpub.com/build-apis-you-wont-hate) book.
-[genealabs/laravel-model-caching](https://github.com/genealabs/laravel-model-caching) | A package that abstracts the caching process into the model and provides self-invalidating relationship (only eager-loading) caching, query caching and automatic use of cache tags for cache providers that support them (will flush entire cache for providers that don't)
-[lord/laroute](https://github.com/aaronlord/laroute) | This package ports the routes over to JavaScript, and gives a bunch of very familiar helper functions to use.
-[laravel/horizon](https://github.com/laravel/horizon) | Horizon provides a beautiful dashboard and code-driven configuration for your Laravel powered Redis queues. Horizon allows you to easily monitor key metrics of your queue system such as job throughput, runtime, and job failures.
+Once complete the installer will remove Arc as a composer dependency.
 
 #### Run the Container
 
