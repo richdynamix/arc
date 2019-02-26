@@ -33,7 +33,7 @@ class InstallArc extends Command
         $this->publishConfigs();
 
         $this->info('Cleaning up and removing Arc...');
-        $this->runComposer( 'composer remove richdynamix/arc');
+        $this->runComposer( 'composer remove richdynamix/arc --ignore-platform-reqs');
     }
 
     /**
