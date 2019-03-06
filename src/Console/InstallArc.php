@@ -29,11 +29,12 @@ class InstallArc extends Command
     public function handle()
     {
         $this->info('Configuring your project...');
-
         $this->publishConfigs();
+        if ($this->confirm('Would you like a Travis CI and K8s CD configuration?')) {
+            return $this->withTravis();
+        }
 
-        $this->info('Cleaning up and removing Arc...');
-        $this->runComposer( 'composer remove richdynamix/arc --ignore-platform-reqs');
+        return $this->withoutTravis();
     }
 
     /**
@@ -53,5 +54,36 @@ class InstallArc extends Command
     {
         $this->info('Publishing Config...');
         $this->call('vendor:publish', ['--provider' => 'Richdynamix\Arc\ArcServiceProvider']);
+    }
+
+    private function withTravis()
+    {
+        unlink(base_path('docker-compose.yml'));
+        copy(base_path('docker-compose-cicd.yml'), base_path('docker-compose.yml'));
+        unlink(base_path('docker-compose-cicd.yml'));
+
+        $this->info('Installing PHP CodeSniffer...');
+        $this->runComposer('composer require squizlabs/php_codesniffer --ignore-platform-reqs --dev');
+
+        $this->info('Installing PHP Mess Detector...');
+        $this->runComposer('composer require phpmd/phpmd --ignore-platform-reqs --dev');
+
+        $this->info('Installing PHPStan...');
+        $this->runComposer('composer require phpstan/phpstan --ignore-platform-reqs --dev');
+
+        $this->cleanUp();
+    }
+
+    private function withoutTravis()
+    {
+        unlink(base_path('docker-compose-cicd.yml'));
+
+        $this->cleanUp();
+    }
+
+    private function cleanUp(): void
+    {
+        $this->info('Cleaning up and removing Arc...');
+        $this->runComposer('composer remove richdynamix/arc --ignore-platform-reqs');
     }
 }

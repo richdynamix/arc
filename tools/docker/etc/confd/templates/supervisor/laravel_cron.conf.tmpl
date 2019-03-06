@@ -1,0 +1,12 @@
+[program:laravel_cron]
+command = /bin/bash -c "cd /app/ && php artisan schedule:run >> /dev/null 2>&1"
+startsecs = 0
+startretries = 0
+stdout_logfile=/dev/stdout
+stdout_logfile_maxbytes=0
+stderr_logfile=/dev/stderr
+stderr_logfile_maxbytes=0
+user = {{ getenv "APP_USER" }}
+autostart = false
+autorestart = false
+priority = 5

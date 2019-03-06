@@ -6,6 +6,7 @@ services:
             context: .
             args:
                 - GITHUB_TOKEN=${GITHUB_TOKEN}
+        image: ${DOCKER_USERNAME}/${DOCKER_REPO}:${TAG}
         links:
             - database
             - redis
