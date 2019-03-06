@@ -1,0 +1,88 @@
+{{- if .Values.web.enabled -}}
+  {{- if .Capabilities.APIVersions.Has "apps/v1" }}
+apiVersion: apps/v1
+  {{- else }}
+apiVersion: apps/v1beta1
+  {{- end }}
+kind: Deployment
+metadata:
+  name: cron
+  labels:
+    app.kubernetes.io/name: {{ include "helm-chart.name" . }}-cron
+    helm.sh/chart: {{ include "helm-chart.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}-cron
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.cron.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "helm-chart.name" . }}-cron
+      app.kubernetes.io/instance: {{ .Release.Name }}-cron
+  strategy:
+    type: {{ .Values.cron.updateStrategy.type }}
+  {{ if and .Values.cron.updateStrategy.type (eq .Values.cron.updateStrategy.type "RollingUpdate") }}
+  rollingUpdate:
+    maxUnavailable: 0
+    maxSurge: 1
+  {{- end }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "helm-chart.name" . }}-cron
+        app.kubernetes.io/instance: {{ .Release.Name }}-cron
+    spec:
+      imagePullSecrets:
+          - name: {{ .Values.image.pullSecret }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            {{- range $key, $value := .Values.env }}
+            - name: {{ $key }}
+              value: {{ $value | quote }}
+            {{- end }}
+            - name: START_MODE
+              value: "cron"
+            - name: RUN_LARAVEL_CRON
+              value: "true"
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          {{- if .Values.cron.livenessProbe.enabled }}
+          livenessProbe:
+            tcpSocket:
+              port: http
+              initialDelaySeconds: {{ .Values.cron.livenessProbe.initialDelaySeconds }}
+              periodSeconds: {{ .Values.cron.livenessProbe.periodSeconds }}
+              timeoutSeconds: {{ .Values.cron.livenessProbe.timeoutSeconds }}
+              successThreshold: {{ .Values.cron.livenessProbe.successThreshold }}
+              failureThreshold: {{ .Values.cron.livenessProbe.failureThreshold }}
+          {{- end }}
+          {{- if .Values.cron.readinessProbe.enabled }}
+          readinessProbe:
+            tcpSocket:
+              port: http
+            initialDelaySeconds: {{ .Values.cron.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.cron.readinessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.cron.readinessProbe.timeoutSeconds }}
+            successThreshold: {{ .Values.cron.readinessProbe.successThreshold }}
+            failureThreshold: {{ .Values.cron.readinessProbe.failureThreshold }}
+          {{- end }}
+          resources:
+            {{- toYaml .Values.cron.resources | nindent 12 }}
+      restartPolicy: "Always"
+      {{- with .Values.cron.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.cron.affinity }}
+    affinity:
+      {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.cron.tolerations }}
+    tolerations:
+      {{- toYaml . | nindent 8 }}
+    {{- end }}
+  {{- end -}}

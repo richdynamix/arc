@@ -1,0 +1,7 @@
+# don't send any mail
+MAILTO=""
+SUPERVISORCTL="supervisorctl -c /etc/supervisor/supervisord.conf -u supervisor -p supervisor"
+
+{{ if eq "true" (getenv "RUN_LARAVEL_CRON") }}
+* * * * * root $SUPERVISORCTL start laravel_cron
+{{ end }}

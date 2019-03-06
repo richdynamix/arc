@@ -3,7 +3,6 @@
 alias_function do_start do_start_arc_inner
 do_start() {
   do_start_arc_inner
-  do_setup
 }
 
 alias_function do_development_start do_development_start_arc_inner
@@ -22,10 +21,6 @@ do_build_arc() {
   do_arc_permissions
 }
 
-do_setup() {
-  do_arc_fresh_install
-}
-
 do_arc_frontend_build() {
   # Build frontend assets
   if [ ! -f /app/public/mix-manifest.json ]; then
@@ -40,10 +35,22 @@ do_arc_permissions() {
   chmod +x /app/storage
 }
 
-do_arc_migration() {
-  as_code_owner "sleep 5 && php artisan migrate"
+do_deploy() {
+    as_code_owner "php artisan migrate --force"
 }
 
-do_arc_fresh_install() {
-    do_arc_migration
+do_phpunit() {
+    as_code_owner "vendor/bin/phpunit -c phpunit.xml"
+}
+
+do_phpcs() {
+    as_code_owner "vendor/bin/phpcs --runtime-set ignore_warnings_on_exit -p --extensions=php app"
+}
+
+do_phpmd() {
+    as_code_owner "vendor/bin/phpmd app xml ruleset.xml"
+}
+
+do_phpstan() {
+    as_code_owner "vendor/bin/phpstan analyse app --level=0"
 }

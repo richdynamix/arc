@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<ruleset name="PHP_CodeSniffer">
+    <description>The coding standard for our projects.</description>
+    <file>app</file>
+    <file>tests</file>
+
+    <exclude-pattern>*/database/*</exclude-pattern>
+
+    <!--<arg name="report" value="summary"/>-->
+    <arg name="colors"/>
+    <arg value="sp"/>
+
+    <rule ref="PSR2"/>
+
+    <rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
+        <exclude-pattern>*/tests/*</exclude-pattern>
+    </rule>
+</ruleset>

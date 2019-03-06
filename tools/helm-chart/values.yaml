@@ -1,0 +1,194 @@
+imageCredentials:
+  registry: "https://index.docker.io/v1/"
+  username: username
+  password: password
+
+image:
+  repository: username/repo
+  tag: latest
+  pullPolicy: IfNotPresent
+  pullSecret: dockerauth
+
+setup:
+  ## If false, setup pre-install hook will not be installed
+  ##
+  enabled: false
+
+deploy:
+  ## If false, deploy pre-upgrade hook will not be installed
+  ##
+  enabled: false
+
+web:
+  ## If false, web container will not be installed
+  ##
+  enabled: true
+
+  ## web container name
+  ##
+  name: 'web'
+
+  ## Number of replica pods
+  ##
+  replicaCount: 1
+
+  ## Custom Update Strategy
+  ##
+  updateStrategy:
+    type: RollingUpdate
+
+  service:
+    type: LoadBalancer
+    port: 80
+
+  ingress:
+    enabled: false
+    annotations: {}
+    paths: []
+    hosts:
+      - chart-example.local
+    tls: []
+
+  livenessProbe:
+    enabled: false
+    initialDelaySeconds: 30
+    periodSeconds: 30
+    timeoutSeconds: 5
+    failureThreshold: 120
+    successThreshold: 1
+  readinessProbe:
+    enabled: true
+    initialDelaySeconds: 30
+    periodSeconds: 30
+    timeoutSeconds: 5
+    failureThreshold: 120
+    successThreshold: 1
+
+  resources:
+    limits:
+      cpu: 150m
+      memory: 512Mi
+    requests:
+      cpu: 150m
+      memory: 512Mi
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+cron:
+  ## If false, cron container will not be installed
+  ##
+  enabled: true
+
+  ## cron container name
+  ##
+  name: 'cron'
+
+  ## Number of replica pods
+  ##
+  replicaCount: 1
+
+  ## Custom Update Strategy
+  ##
+  updateStrategy:
+    type: RollingUpdate
+
+  service:
+    type: ClusterIP
+    port: 80
+
+  ingress:
+    enabled: false
+    annotations: {}
+    paths: []
+    hosts:
+      - chart-example.local
+    tls: []
+
+  livenessProbe:
+    enabled: false
+    initialDelaySeconds: 30
+    periodSeconds: 30
+    timeoutSeconds: 5
+    failureThreshold: 120
+    successThreshold: 1
+  readinessProbe:
+    enabled: false
+    initialDelaySeconds: 30
+    periodSeconds: 30
+    timeoutSeconds: 5
+    failureThreshold: 120
+    successThreshold: 1
+
+  resources:
+    limits:
+      cpu: 150m
+      memory: 512Mi
+    requests:
+      cpu: 150m
+      memory: 512Mi
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+redis:
+  ## If false, redis container will not be installed
+  ##
+  enabled: true
+
+  ## redis container name
+  ##
+  name: 'redis'
+
+  ## Number of replica pods
+  ##
+  replicaCount: 1
+
+  ## redis container image
+  ##
+  image:
+    repository: quay.io/continuouspipe/redis3
+    tag: stable
+    pullPolicy: IfNotPresent
+
+  updateStrategy:
+    type: RollingUpdate
+
+  service:
+    type: ClusterIP
+    port: 6379
+
+  livenessProbe:
+    enabled: false
+    initialDelaySeconds: 30
+    periodSeconds: 30
+    timeoutSeconds: 5
+    failureThreshold: 120
+    successThreshold: 1
+  readinessProbe:
+    enabled: true
+    initialDelaySeconds: 30
+    periodSeconds: 30
+    timeoutSeconds: 5
+    failureThreshold: 120
+    successThreshold: 1
+
+  resources:
+    limits:
+      cpu: 100m
+      memory: 250Mi
+    requests:
+      cpu: 100m
+      memory: 250Mi
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}

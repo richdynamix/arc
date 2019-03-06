@@ -1,7 +1,7 @@
 FROM quay.io/continuouspipe/php7.2-nginx:stable
 
 # Install node npm
-RUN curl -sL https://deb.nodesource.com/setup_10.x > /tmp/install-node.sh \
+RUN curl -sL https://deb.nodesource.com/setup_11.x > /tmp/install-node.sh \
  && bash /tmp/install-node.sh \
  && apt-get update -qq -y \
  && DEBIAN_FRONTEND=noninteractive apt-get -qq -y --no-install-recommends install \

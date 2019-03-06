@@ -1,0 +1,6 @@
+[template]
+src   = "laravel/cron.tmpl"
+dest  = "/etc/cron.d/laravel"
+mode  = "0644"
+keys = [
+]

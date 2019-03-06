@@ -1,0 +1,77 @@
+{{- if .Values.redis.enabled -}}
+  {{- if .Capabilities.APIVersions.Has "apps/v1" }}
+apiVersion: apps/v1
+  {{- else }}
+apiVersion: apps/v1beta1
+  {{- end }}
+kind: Deployment
+metadata:
+  name: redis
+  labels:
+    app.kubernetes.io/name: {{ include "helm-chart.name" . }}-redis
+    helm.sh/chart: {{ include "helm-chart.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}-redis
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.redis.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "helm-chart.name" . }}-redis
+      app.kubernetes.io/instance: {{ .Release.Name }}-redis
+  strategy:
+    type: {{ .Values.redis.updateStrategy.type }}
+  {{ if and .Values.redis.updateStrategy.type (eq .Values.redis.updateStrategy.type "RollingUpdate") }}
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  {{- end }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "helm-chart.name" . }}-redis
+        app.kubernetes.io/instance: {{ .Release.Name }}-redis
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.redis.image.repository }}:{{ .Values.redis.image.tag }}"
+          imagePullPolicy: {{ .Values.redis.image.pullPolicy }}
+          ports:
+            - name: port-6379
+              containerPort: 6379
+              protocol: TCP
+          {{- if .Values.redis.livenessProbe.enabled }}
+          livenessProbe:
+            tcpSocket:
+              port: http
+              initialDelaySeconds: {{ .Values.redis.livenessProbe.initialDelaySeconds }}
+              periodSeconds: {{ .Values.redis.livenessProbe.periodSeconds }}
+              timeoutSeconds: {{ .Values.redis.livenessProbe.timeoutSeconds }}
+              successThreshold: {{ .Values.redis.livenessProbe.successThreshold }}
+              failureThreshold: {{ .Values.redis.livenessProbe.failureThreshold }}
+          {{- end }}
+          {{- if .Values.redis.readinessProbe.enabled }}
+          readinessProbe:
+            tcpSocket:
+              port: port-6379
+            initialDelaySeconds: {{ .Values.redis.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.redis.readinessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.redis.readinessProbe.timeoutSeconds }}
+            successThreshold: {{ .Values.redis.readinessProbe.successThreshold }}
+            failureThreshold: {{ .Values.redis.readinessProbe.failureThreshold }}
+          {{- end }}
+          resources:
+            {{- toYaml .Values.redis.resources | nindent 12 }}
+      restartPolicy: "Always"
+      {{- with .Values.redis.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.redis.affinity }}
+    affinity:
+      {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.redis.tolerations }}
+    tolerations:
+      {{- toYaml . | nindent 8 }}
+    {{- end }}
+  {{- end -}}
