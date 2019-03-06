@@ -58,6 +58,8 @@ class InstallArc extends Command
 
     private function withTravis()
     {
+        $this->runComposer('composer require predis/predis --ignore-platform-reqs');
+
         unlink(base_path('docker-compose.yml'));
         copy(base_path('docker-compose-cicd.yml'), base_path('docker-compose.yml'));
         unlink(base_path('docker-compose-cicd.yml'));
@@ -76,6 +78,8 @@ class InstallArc extends Command
 
     private function withoutTravis()
     {
+        $this->runComposer('composer require predis/predis --ignore-platform-reqs');
+
         unlink(base_path('docker-compose-cicd.yml'));
 
         $this->cleanUp();

@@ -11,10 +11,8 @@
     ],
     "require": {
         "php": "^7.1.3",
-        "predis/predis": "^1.1",
         "illuminate/support" : "~5.5",
-        "illuminate/console": "~5.5",
-        "illuminate/config": "~5.5"
+        "illuminate/console": "~5.5"
     },
     "autoload": {
         "psr-4": {
