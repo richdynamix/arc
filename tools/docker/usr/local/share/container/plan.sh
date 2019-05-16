@@ -54,3 +54,15 @@ do_phpmd() {
 do_phpstan() {
     as_code_owner "vendor/bin/phpstan analyse app --level=0"
 }
+
+do_supervisor() {
+   supervisorctl -c /etc/supervisor/supervisord.conf -u supervisor -p supervisor $1
+}
+
+do_clear_cache_cloudflare() {
+   curl -X POST "https://api.cloudflare.com/client/v4/zones/${CLOUD_FLARE_ZONE}/purge_cache" \
+     -H "X-Auth-Email: ${CLOUD_FLARE_EMAIL}" \
+     -H "X-Auth-Key: ${CLOUD_FLARE_API_KEY}" \
+     -H "Content-Type: application/json" \
+     --data '{"purge_everything":true}'
+}
