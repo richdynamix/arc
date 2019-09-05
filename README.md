@@ -10,7 +10,7 @@ Additionally - if selected, it can also add a Continuous Integration & Continuou
 
 The Docker configuration provides the following:
 
-- PHP 7.2 (Configurable for 5.6, 7.0, 7.1 & 7.2)
+- PHP 7.3 (Configurable for 5.6, 7.0, 7.1, 7.2 & 7.3)
 - NodeJS 11 inc NPM
 - NGINX
 - MySQL 5.7
@@ -35,7 +35,7 @@ CI/CD Configuration contains the following:
 
 ## Requirements
 
-This package is intended for new Laravel >5.5 projects.
+This package is intended for new Laravel 6 projects.
 
 ## Installation
 
@@ -109,9 +109,12 @@ Additionally, you can run `container phpunit` to run your test suite within the 
 
 As part of the Arc configurations there is a simple bash script added to the root of your project which allows you to call -
 ```bash
-    ./ssh
+    ./ssh web
 ```
-This is simply a wrapper script for convenience. Under the hood its simply calling `docker exec -it arc_web_1 bash`
+This is simply a wrapper script for convenience. Under the hood its simply calling `docker exec -it web bash`
+
+Addtionally, you may swap the `web` argument for any of the container names i.e. `./ssh database`, `./ssh redis`
+
 
 ## Configuration
 
