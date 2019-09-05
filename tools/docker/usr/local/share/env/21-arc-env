@@ -1,50 +1,5 @@
 #!/bin/bash
 
-DEVELOPMENT_MODE=${DEVELOPMENT_MODE:-true}
-DEVELOPMENT_MODE="$(convert_to_boolean_string "$DEVELOPMENT_MODE")"
-export DEVELOPMENT_MODE
-
-COMPOSER_INSTALL_FLAGS="--no-interaction --optimize-autoloader --ignore-platform-reqs"
-
-if [ -z "$DEVELOPMENT_MODE" ] || [ "$DEVELOPMENT_MODE" != 'true' ]; then
-  DEFAULT_COMPOSER_FLAGS="${DEFAULT_COMPOSER_FLAGS} --no-dev "
-fi
-
-export COMPOSER_INSTALL_FLAGS=${COMPOSER_INSTALL_FLAGS:-$COMPOSER_INSTALL_FLAGS}
-
-START_MODE_CRON=${START_MODE_CRON:-true}
-START_MODE_CRON="$(convert_to_boolean_string "$START_MODE_CRON")"
-export START_MODE_CRON
-
-START_MODE_WEB=${START_MODE_WEB:-true}
-START_MODE_WEB="$(convert_to_boolean_string "$START_MODE_WEB")"
-export START_MODE_WEB
-
-WEB_HTTPS_ONLY=${WEB_HTTPS_ONLY:-true}
-WEB_HTTPS_ONLY="$(convert_to_boolean_string "$WEB_HTTPS_ONLY")"
-export WEB_HTTPS_ONLY
-
-START_HORIZON=${START_HORIZON:-false}
-START_HORIZON="$(convert_to_boolean_string "$START_HORIZON")"
-export START_HORIZON
-
-START_QUEUE=${START_QUEUE:-true}
-START_QUEUE="$(convert_to_boolean_string "$START_QUEUE")"
-export START_QUEUE
-
-RUN_LARAVEL_CRON=${RUN_LARAVEL_CRON:-false}
-RUN_LARAVEL_CRON="$(convert_to_boolean_string "$RUN_LARAVEL_CRON")"
-export RUN_LARAVEL_CRON
-
-AUTH_HTTP_ENABLED=${AUTH_HTTP_ENABLED:-false}
-AUTH_HTTP_ENABLED="$(convert_to_boolean_string "$AUTH_HTTP_ENABLED")"
-export AUTH_HTTP_ENABLED
-
-export AUTH_HTTP_REALM=${AUTH_HTTP_REALM:-"Protected System"}
-export AUTH_HTTP_FILE=/etc/nginx/custom-htpasswd-path
-
-export WORK_DIRECTORY=${WORK_DIRECTORY:-/app}
-export WEB_DIRECTORY=${WEB_DIRECTORY:-${WORK_DIRECTORY}/public}
 
 export APP_NAME=${APP_NAME:-Arc}
 export APP_ENV=${APP_ENV:-local}
