@@ -2,6 +2,7 @@ version: "3"
 
 services:
     web:
+        container_name: web
         build:
             context: .
             args:
@@ -17,7 +18,7 @@ services:
             - "80:80"
             - "443:443"
         volumes:
-            - .:/app
+            - .:/app:delegated
         environment:
           VIRTUAL_HOST: "127.0.0.1:80"
           REDIS_PORT: 6379
@@ -26,7 +27,8 @@ services:
           MAIL_PASSWORD: ""
 
     database:
-        image: quay.io/continuouspipe/mysql5.7:stable
+        container_name: database
+        image: digitonic1/mysql5.7:latest
         environment:
             MYSQL_ROOT_PASSWORD: arc
             MYSQL_DATABASE: arc
@@ -34,12 +36,15 @@ services:
             MYSQL_PASSWORD: arc
         expose:
             - 3306
+            - 4306
         ports:
-            - "3306:3306"
+            - "4306:3306"
 
     redis:
-        image: quay.io/continuouspipe/redis3:stable
+        container_name: redis
+        image: digitonic1/redis3:latest
         expose:
             - 6379
         ports:
             - "6379:6379"
+
