@@ -1,4 +1,4 @@
-FROM digitonic1/php7.3-nginx:latest
+FROM digitonic1/php7.4-nginx:latest
 
 # Install node npm
 RUN curl -sL https://deb.nodesource.com/setup_11.x > /tmp/install-node.sh \
@@ -20,7 +20,7 @@ RUN curl -sL https://deb.nodesource.com/setup_11.x > /tmp/install-node.sh \
  && npm rebuild node-sass \
  \
  # Clean the image \
- && apt-get remove -qq -y php7.2-dev pkg-config libmagickwand-dev build-essential \
+ && apt-get remove -qq -y php7.4-dev pkg-config libmagickwand-dev build-essential \
  && apt-get auto-remove -qq -y \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

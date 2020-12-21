@@ -28,7 +28,7 @@ services:
 
     database:
         container_name: database
-        image: digitonic1/mysql5.7:latest
+        image: digitonic1/mysql8:latest
         environment:
             MYSQL_ROOT_PASSWORD: arc
             MYSQL_DATABASE: arc
@@ -42,7 +42,7 @@ services:
 
     redis:
         container_name: redis
-        image: digitonic1/redis3:latest
+        image: redis:latest
         expose:
             - 6379
         ports:

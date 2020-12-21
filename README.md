@@ -10,11 +10,11 @@ Additionally - if selected, it can also add a Continuous Integration & Continuou
 
 The Docker configuration provides the following:
 
-- PHP 7.3 (Configurable for 5.6, 7.0, 7.1, 7.2 & 7.3)
+- PHP 7.4 (Configurable for 5.6, 7.0, 7.1, 7.2, 7.3, 7.4)
 - NodeJS 11 inc NPM
 - NGINX
-- MySQL 5.7
-- REDIS 3
+- MySQL 8
+- REDIS 6
 - ConfD templating
 - SupervisorD for process management
 - Configurable queue workers
@@ -111,7 +111,7 @@ As part of the Arc configurations there is a simple bash script added to the roo
 ```bash
     ./ssh web
 ```
-This is simply a wrapper script for convenience. Under the hood its simply calling `docker exec -it web bash`
+This is simply a wrapper script for convenience. Under the hood it's simply calling `docker exec -it web bash`
 
 Addtionally, you may swap the `web` argument for any of the container names i.e. `./ssh database`, `./ssh redis`
 
@@ -124,10 +124,10 @@ ContinuousPipe Dockerfile offers an extremely flexible and solid infrastructure 
 
 Rather that explain all the functions and environment variables available to Arc, it is easier to point you to the documentation for the parent images:
 
-- [PHP NGINX](https://github.com/continuouspipe/dockerfiles/tree/master/php/nginx) - The direct parent of the Arc Docker file. By default it uses PHP 7.1 but you can change this within the Arc Dockerfile to match your needs. (Available versions are 5.6, 7.0 and 7.1)
+- [PHP NGINX](https://github.com/continuouspipe/dockerfiles/tree/master/php/nginx) - The direct parent of the Arc Docker file. By default, it uses PHP 7.4, but you can change this within the Arc Dockerfile to match your needs. (Available versions are 5.6, 7.0, 7.1, 7.2, 7.3, 7.4)
 - [Ubuntu 16.04](https://github.com/continuouspipe/dockerfiles/tree/master/ubuntu/16.04) - This is the base image which the PHP image extends. This sets up all the ConfD and SupervisorD configuration.
 
-To manipulate your environment you can add values for any of the environment variables for any of the above. Additionally there are a few specific to Arc which are all defined in `tools/docker/usr/local/share/env/20-arc-env`.
+To manipulate your environment you can add values for any of the environment variables for any of the above. Additionally, there are a few specific to Arc which are all defined in `tools/docker/usr/local/share/env/20-arc-env`.
 
 Variable | Description | Expected values | Default
 --- | --- | --- | ----
@@ -138,7 +138,7 @@ COMPOSER_INSTALL_FLAGS | Allow the override of composer flags during installatio
 
 ## Credits
 
-This package would not have been possible would it not have been for the amazing work of the ContinuousPipe team. Also a special thanks to Samuel for the introduction of ContinuousPipe and Kubernetes. His ability to teach Docker concepts has been of great value. A huge thanks to Kieren for his attention to detail and everlasting patience when helping me to understand the ContinuousPipe Dockerfiles and setup.
+This package would not have been possible would it not have been for the amazing work of the ContinuousPipe team. Also, a special thanks to Samuel for the introduction of ContinuousPipe and Kubernetes. His ability to teach Docker concepts has been of great value. A huge thanks to Kieren for his attention to detail and everlasting patience when helping me to understand the ContinuousPipe Dockerfiles and setup.
 
 - [Samuel ROZE](https://github.com/sroze)
 - [Kieren Evans](https://github.com/kierenevans)
