@@ -43,7 +43,7 @@ class InstallArc extends Command
     private function runComposer($cmd): void
     {
         if ($cmd) {
-            $process = new Process($cmd, null, array_merge($_SERVER, $_ENV), null, null);
+            $process = Process::fromShellCommandline($cmd, null, array_merge($_SERVER, $_ENV), null, null);
             $process->run(function ($type, $line) {
                 $this->line($line);
             });
