@@ -164,3 +164,15 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+<!-- richdynamix-bio:start -->
+
+## About the author
+
+Built and maintained by [Steven Richardson](https://richdynamix.com) — CTO at Digitonic and Laravel engineer.
+
+- Site & articles: [richdynamix.com](https://richdynamix.com)
+- Laravel deep-dives: [richdynamix.com/articles](https://richdynamix.com/articles)
+- More open source: [github.com/richdynamix](https://github.com/richdynamix)
+
+<!-- richdynamix-bio:end -->
